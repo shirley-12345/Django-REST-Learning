@@ -1,8 +1,24 @@
-from operator import truediv
-from typing import Required
+
+from unittest.util import _MAX_LENGTH
 from rest_framework import serializers
-from snippets.models import Snippets,LANGUAGE_CHOICES,STYLE_CHOICES
+from snippets.models import Snippet,LANGUAGE_CHOICES,STYLE_CHOICES
 
 class SnippetSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    title = serializers.IntegerField(Required=False)
+    title = serializers.IntegerField(Required=False, allow_blank=True, _MAX_LENGTH=100)
+    code = serializers.CharField(style={'base_template':'textarea.html'})
+    linenos = serializers.BooleanField(required=False)
+    language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
+    style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
+
+    def create(self,validate_data):
+        return Snippet.object.create(**validate_data)
+    
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.code = validated_data.get('code', instance.code)
+        instance.linenos = validated_data.get('linenos', instance.linenos)
+        instance.language = validated_data.get('language', instance.language)
+        instance.style = validated_data.get('style', instance.style)
+        instance.save()
+        return instance
