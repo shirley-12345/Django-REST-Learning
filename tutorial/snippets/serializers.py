@@ -5,7 +5,7 @@ from snippets.models import Snippet,LANGUAGE_CHOICES,STYLE_CHOICES
 
 class SnippetSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    title = serializers.IntegerField(Required=False, allow_blank=True, _MAX_LENGTH=100)
+    title = serializers.IntegerField(required=False, allow_blank=True, _MAX_LENGTH=100)
     code = serializers.CharField(style={'base_template':'textarea.html'})
     linenos = serializers.BooleanField(required=False)
     language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
