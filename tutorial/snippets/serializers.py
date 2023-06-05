@@ -3,13 +3,19 @@ from unittest.util import _MAX_LENGTH
 from rest_framework import serializers
 from snippets.models import Snippet,LANGUAGE_CHOICES,STYLE_CHOICES
 
-class SnippetSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.IntegerField(required=False, allow_blank=True, _MAX_LENGTH=100)
-    code = serializers.CharField(style={'base_template':'textarea.html'})
-    linenos = serializers.BooleanField(required=False)
-    language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
-    style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
+#get serializer dat here
+class SnippetSerializer(serializers.ModelSerializer):
+    # id = serializers.IntegerField(read_only=True)
+    # title = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    # code = serializers.CharField(style={'base_template':'textarea.html'})
+    # linenos = serializers.BooleanField(required=False)
+    # language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
+    # style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
+
+
+    class Mete:
+        model = Snippet
+        fields = ['id','title','code','linenos','language','style']
 
     def create(self,validate_data):
         return Snippet.object.create(**validate_data)
