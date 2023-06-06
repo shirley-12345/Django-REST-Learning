@@ -12,7 +12,7 @@ class SnippetSerializer(serializers.Serializer):
     style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 
     def create(self,validate_data):
-        return Snippet.object.create(**validate_data)
+        return Snippet.objects.create(**validate_data)
     
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
