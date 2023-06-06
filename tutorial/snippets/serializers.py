@@ -15,7 +15,7 @@ class SnippetSerializer(serializers.ModelSerializer):
 
 
     def create(self,validate_data):
-        return Snippet.object.create(**validate_data)
+        return Snippet.objects.create(**validate_data)
     
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
@@ -28,4 +28,4 @@ class SnippetSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Snippet
-        fields = ['id','title','code','linenos','language','style']
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']

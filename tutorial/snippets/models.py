@@ -11,7 +11,7 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 # define a table in the database
 class Snippet(models.Model):
-    created = models.DateTimeField(auto_now_add = True)
+    created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length = 100, blank=True,default='')
     code = models.TextField()
     linenos = models.BooleanField(default=False)
@@ -21,3 +21,5 @@ class Snippet(models.Model):
     class Meta:
         ordering  = ['created']
         db_table = 'snippets_snippet'
+        def __str__(self):
+            return self.created
