@@ -13,9 +13,6 @@ class SnippetSerializer(serializers.ModelSerializer):
     # style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 
 
-    class Mete:
-        model = Snippet
-        fields = ['id','title','code','linenos','language','style']
 
     def create(self,validate_data):
         return Snippet.object.create(**validate_data)
@@ -28,3 +25,7 @@ class SnippetSerializer(serializers.ModelSerializer):
         instance.style = validated_data.get('style', instance.style)
         instance.save()
         return instance
+    
+    class Meta:
+        model = Snippet
+        fields = ['id','title','code','linenos','language','style']
