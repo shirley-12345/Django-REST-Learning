@@ -142,7 +142,7 @@ from django.contrib.auth.models import User
 #         return Response(snippet.highlighted)
     
 
-
+# Refactoring to use ViewSets
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
